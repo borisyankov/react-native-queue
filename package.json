@@ -1,6 +1,6 @@
 {
   "name": "react-native-queue",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A React Native Job Queue",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/billmalarky/react-native-queue#readme",
   "dependencies": {
     "promise-reflect": "^1.1.0",
-    "react-native-uuid": "^1.4.9",
+    "react-native-uuid": "^2.0.1",
     "realm": "^10.2.0"
   },
   "devDependencies": {
