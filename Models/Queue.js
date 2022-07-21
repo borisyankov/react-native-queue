@@ -31,9 +31,9 @@ export class Queue {
    * Initializes the queue by connecting to Realm database.
    *
    */
-  async init() {
+  async init(options) {
     if (this.realm === null) {
-      this.realm = await Database.getRealmInstance();
+      this.realm = await Database.getRealmInstance(options);
     }
   }
 
@@ -437,10 +437,10 @@ export class Queue {
  *
  * @return {Queue} - A queue instance.
  */
-export default async function queueFactory() {
+export default async function queueFactory(options) {
 
   const queue = new Queue();
-  await queue.init();
+  await queue.init(options);
 
   return queue;
 
