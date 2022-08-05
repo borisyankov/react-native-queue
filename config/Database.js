@@ -21,28 +21,24 @@ const JobSchema = {
   }
 };
 
-export default class Database {
+const realmInstances = {};
 
-  static realmInstance = null; // Use a singleton connection to realm for performance.
+export const getRealmInstance = async (options = {}) => {
 
-  static async getRealmInstance(options = {}) {
+  // Connect to realm if database singleton instance has not already been created.
+  if (!realmInstances[options.realmPath]) {
 
-    // Connect to realm if database singleton instance has not already been created.
-    if (Database.realmInstance === null) {
+    realmInstances[options.realmPath] = await Realm.open({
+      path: options.realmPath || Config.REALM_PATH,
+      schemaVersion: Config.REALM_SCHEMA_VERSION,
+      schema: [JobSchema]
 
-      Database.realmInstance = await Realm.open({
-        path: options.realmPath || Config.REALM_PATH,
-        schemaVersion: Config.REALM_SCHEMA_VERSION,
-        schema: [JobSchema]
+      // Look up shouldCompactOnLaunch to auto-vacuum https://github.com/realm/realm-js/pull/1209/files
 
-        // Look up shouldCompactOnLaunch to auto-vacuum https://github.com/realm/realm-js/pull/1209/files
-
-      });
-
-    }
-
-    return Database.realmInstance;
+    });
 
   }
+
+  return realmInstances[options.realmPath];
 
 }

@@ -1,4 +1,4 @@
-/**
+this.realm/**
  *
  * Queue Model
  *
@@ -6,7 +6,7 @@
  *
  */
 
-import Database from '../config/Database';
+import { getRealmInstance } from '../config/Database';
 import uuid from 'react-native-uuid';
 import Worker from './Worker';
 import promiseReflect from 'promise-reflect';
@@ -33,7 +33,7 @@ export class Queue {
    */
   async init(options) {
     if (this.realm === null) {
-      this.realm = await Database.getRealmInstance(options);
+      this.realm = await getRealmInstance(options);
     }
   }
 
